@@ -32,8 +32,16 @@ jobs:
       name: staging
       url: xyz.staging.al
     steps:
+      - name: Prepare release (staging)
+        run: |
+          echo "Preparing release"
+          sleep 5s
+        shell: bash
       - name: Release (staging)
-        run: echo "Release"
+        run: |
+          echo "Deploying to staging"
+          sleep 15s
+        shell: bash
   release-prod:
     needs: [release-staging]
     runs-on: ubuntu-latest
