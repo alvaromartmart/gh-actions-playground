@@ -12,6 +12,11 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'     
+        required: true
+        default: '1.0.0'
 
 jobs:
   build:
@@ -30,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: xyz.staging.al
+      url: https://github.com/alvaromartmart/gh-actions-playground
     steps:
       - name: Prepare release (staging)
         run: |
@@ -43,11 +48,12 @@ jobs:
           sleep 15s
         shell: bash
   release-prod:
+    name: 'Release ${{github.event.inputs.version}}'
     needs: [release-staging]
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: xyz.al
+      url: https://github.com/alvaromartmart/gh-actions-playground
     steps:
       - name: Release (production)
         run: echo "Release to prod!"
