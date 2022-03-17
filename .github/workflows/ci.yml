@@ -17,6 +17,11 @@ on:
         description: 'Version'     
         required: true
         default: '1.0.0'
+      qa:
+        description: 'Require QA'     
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   build:
@@ -32,7 +37,7 @@ jobs:
         run: echo "Test"
   release-staging:
     needs: [test]
-    if: ${{false}}
+    if: ${{github.event.inputs.qa}}
     runs-on: ubuntu-latest
     environment:
       name: staging
