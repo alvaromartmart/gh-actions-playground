@@ -36,7 +36,7 @@ jobs:
       - name: Test
         run: echo "Test"
       - name: Output test results
-        run: echo "Passing tests: 100. Failed: 0" >> $GITHUB_STEP_SUMMARY
+        run: echo "Passing tests - 100. Failed - 0" >> $GITHUB_STEP_SUMMARY
   release-staging:
     needs: [test]
     if: ${{github.event.inputs.qa}}
