@@ -35,7 +35,7 @@ jobs:
             line 1
             line 2
           "
-          echo "foo=$bar" >> $GITHUB_OUTPUT
+          echo "foo="$bar"" >> $GITHUB_OUTPUT
   test:
     needs: [build]
     runs-on: ubuntu-latest
