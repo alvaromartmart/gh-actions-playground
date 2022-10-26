@@ -31,10 +31,11 @@ jobs:
         run: echo "Build"
       - name: Output multiline
         run: |
-          echo "foo='
+          bar="
             line 1
             line 2
-          '" >> $GITHUB_OUTPUT
+          "
+          echo "foo=$bar" >> $GITHUB_OUTPUT
   test:
     needs: [build]
     runs-on: ubuntu-latest
