@@ -29,6 +29,12 @@ jobs:
     steps:
       - name: Build the code
         run: echo "Build"
+      - name: Output multiline
+        run: |
+          echo "foo='
+            line 1
+            line 2
+          '" >> $GITHUB_OUTPUT
   test:
     needs: [build]
     runs-on: ubuntu-latest
