@@ -84,8 +84,12 @@ jobs:
       - name: print
         id: read
         run: |
-          msg="$(cat message.md)"
-          echo "result="$msg"" >> $GITHUB_OUTPUT
+          file="message.md"
+          while read -r line; do
+              echo -e "$line\n"
+              echo "result="$line<<EOF"" >> $GITHUB_OUTPUT
+          done <$file 
+          echo "result="EOF"" >> $GITHUB_OUTPUT
       - name: print
         run: |
           echo "${{steps.read.outputs.result}}"
@@ -106,7 +110,7 @@ jobs:
                   "text": "Message for `${{ github.ref_name }}` - <https://github.com/${{github.repository}}/commit/${{github.sha}}|_'${{ steps.commit-msg.outputs.commitmsg }}'_> (view <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}|_run_>)"
                 },
               },
-              {"type": "section", "text": {"type": "mrkdwn", "text": "${{$(cat message.md)}}"}}
+              {"type": "section", "text": {"type": "mrkdwn", "text": "${{ steps.read.outputs.result }}"}}
             ]
 
 
