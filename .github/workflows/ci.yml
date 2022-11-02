@@ -87,9 +87,9 @@ jobs:
           file="message.md"
           while read -r line; do
               echo -e "$line\n"
-              echo "result="$line<<EOF"" >> $GITHUB_OUTPUT
+              echo "result="$line<<$"" >> $GITHUB_OUTPUT
           done <$file 
-          echo "result=EOF" >> $GITHUB_OUTPUT
+          echo "result=$" >> $GITHUB_OUTPUT
       - name: print
         run: |
           echo "${{steps.read.outputs.result}}"
