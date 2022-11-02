@@ -89,8 +89,6 @@ jobs:
       - name: print
         run: |
           echo "${{steps.read.outputs.result}}""
-        with:
-          SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
       - name: Send message to slack
         uses: archive/github-actions-slack@v2.3.1
         id: send-message
