@@ -106,7 +106,7 @@ jobs:
                   "text": "Message for `${{ github.ref_name }}` - <https://github.com/${{github.repository}}/commit/${{github.sha}}|_'${{ steps.commit-msg.outputs.commitmsg }}'_> (view <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}|_run_>)"
                 },
               },
-              {"type": "section", "text": {"type": "mrkdwn", "text": "$(cat message.md)"}}
+              {"type": "section", "text": {"type": "mrkdwn", "text": "${{cat message.md}}"}}
             ]
 
 
