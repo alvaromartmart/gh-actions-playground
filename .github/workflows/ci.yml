@@ -75,4 +75,18 @@ jobs:
     steps:
       - name: Release (production)
         run: echo "Release to prod!"
+  print-message:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "@actions/checkout"
+      - name: print
+        id: read
+        run: |
+          msg="$(cat message.md)"
+          echo "result="$msg"" >> $GITHUB_OUTPUT
+      - name: print
+        run: |
+          echo "${{steps.print.outputs.result}}""
+
+
     
