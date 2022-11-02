@@ -78,7 +78,9 @@ jobs:
   print-message:
     runs-on: ubuntu-latest
     steps:
-      - uses: "@actions/checkout"
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
       - name: print
         id: read
         run: |
