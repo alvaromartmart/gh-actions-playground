@@ -89,7 +89,7 @@ jobs:
               echo -e "$line\n"
               echo "result="$line<<EOF"" >> $GITHUB_OUTPUT
           done <$file 
-          echo "result="EOF"" >> $GITHUB_OUTPUT
+          echo "result=EOF" >> $GITHUB_OUTPUT
       - name: print
         run: |
           echo "${{steps.read.outputs.result}}"
