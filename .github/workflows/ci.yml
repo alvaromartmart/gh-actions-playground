@@ -88,7 +88,7 @@ jobs:
           echo "result="$msg"" >> $GITHUB_OUTPUT
       - name: print
         run: |
-          echo "${{steps.read.outputs.result}}""
+          echo "${{steps.read.outputs.result}}"
       - name: Send message to slack
         uses: archive/github-actions-slack@v2.3.1
         id: send-message
