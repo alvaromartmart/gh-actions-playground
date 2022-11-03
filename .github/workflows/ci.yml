@@ -86,7 +86,7 @@ jobs:
         run: |
           file="message.md"
           while read -r line; do
-            echo -e "$line\n" >> "${$GITHUB_OUTPUT}"
+            echo -e "$line\n" >> "${GITHUB_OUTPUT}"
           done < $file
       - name: print
         run: |
