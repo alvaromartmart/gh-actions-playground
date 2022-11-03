@@ -89,6 +89,7 @@ jobs:
           while read -r line; do
             echo -e "$line" >> "${GITHUB_OUTPUT}"
           done <$file
+          echo "$(cat message.md)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
       - name: print
         run: |
