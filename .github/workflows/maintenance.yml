@@ -30,14 +30,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Debug
+        id: get-info
         run: |
           echo ${{github.event.head_commit.message}}
           echo ${{github.event_name}}
           echo ${{github.ref_name}}
-          git log --format=%B -n 1 ${{github.sha}}
+          echo "message=$(git show -s --format=%s)" >> GITHUB_OUTPUT
+      - run: echo ${{steps.get-info.outputs.message}}
       - name: Remove "has conflicts" label
+        if: contains(steps.get-info.outputs.message, 'Merge branch ''main''')
         uses: andymckay/labeler@master
         with:
           remove-labels: "has conflicts"
