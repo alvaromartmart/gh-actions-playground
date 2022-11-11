@@ -37,7 +37,7 @@ jobs:
           echo ${{github.event.head_commit.message}}
           echo ${{github.event_name}}
           echo ${{github.ref_name}}
-          echo "message=$(git show -s --format=%s)" >> GITHUB_OUTPUT
+          echo "message=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
       - run: echo ${{steps.get-info.outputs.message}}
       - name: Remove "has conflicts" label
         if: contains(steps.get-info.outputs.message, 'Merge branch ''main''')
