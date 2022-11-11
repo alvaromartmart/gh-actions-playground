@@ -2,5 +2,5 @@
 
 master2!
 
-
 foo
+bar
