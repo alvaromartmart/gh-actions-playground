@@ -6,14 +6,14 @@ on:
   # So that the `dirtyLabel` is removed if conflicts are resolve
   # We recommend `pull_request_target` so that github secrets are available.
   # In `pull_request` we wouldn't be able to change labels of fork PRs
-  pull_request_target:
+  pull_request:
     types: [synchronize]
 
 jobs:
   main:
     runs-on: ubuntu-latest
     if: |
-      !(github.event_name == 'pull_request_target')
+      !(github.event_name == 'pull_request')
     steps:
       - name: debug
         run: echo ${{github.event_name}}
@@ -26,7 +26,7 @@ jobs:
     name: Remove `has conflicts` label after conflict resolution
     runs-on: ubuntu-latest
     if: |
-      (github.event_name == 'pull_request_target')
+      (github.event_name == 'pull_request')
     steps:
       - uses: actions/checkout@v3
         with:
