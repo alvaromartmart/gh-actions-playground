@@ -12,7 +12,11 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
+    if: |
+      !(github.event_name == 'pull_request_target')
     steps:
+      - name: debug
+        run: echo ${{github.event_name}}
       - name: check if prs are dirty
         uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
@@ -22,10 +26,12 @@ jobs:
     name: Remove `has conflicts` label after conflict resolution
     runs-on: ubuntu-latest
     if: |
-      github.event.pull_request && 
-      !(github.ref_name == 'main') && 
-      contains(github.event.head_commit.message, 'Merge branch ''main ''')
+      true || (github.event_name == 'pull_request_target')
     steps:
+      - name: Debug
+        run: |
+          echo ${{github.event.head_commit.message}}
+          echo ${{github.event_name}}
       - name: Remove "has conflicts" label
         uses: andymckay/labeler@master
         with:
