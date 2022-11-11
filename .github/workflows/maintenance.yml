@@ -26,12 +26,14 @@ jobs:
     name: Remove `has conflicts` label after conflict resolution
     runs-on: ubuntu-latest
     if: |
-      true || (github.event_name == 'pull_request_target')
+      (github.event_name == 'pull_request_target') &&
     steps:
       - name: Debug
         run: |
           echo ${{github.event.head_commit.message}}
           echo ${{github.event_name}}
+          echo ${{github.ref_name}}
+          git log --format=%B -n 1 ${{github.sha}}
       - name: Remove "has conflicts" label
         uses: andymckay/labeler@master
         with:
