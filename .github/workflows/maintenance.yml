@@ -23,8 +23,6 @@ jobs:
   conflicts-cleanup:
     name: Remove `has conflicts` label after conflict resolution
     runs-on: ubuntu-latest
-    if: |
-      github.event.pull_request_target
     steps:
       - name: Debug
         run: echo ${{(github.event.head_commit.message}}
