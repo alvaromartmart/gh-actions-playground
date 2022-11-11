@@ -13,7 +13,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     if: |
-      !(github.event.name == 'pull_request_target')
+      !(github.event_name == 'pull_request_target')
     steps:
       - name: check if prs are dirty
         uses: eps1lon/actions-label-merge-conflict@releases/2.x
@@ -24,7 +24,7 @@ jobs:
     name: Remove `has conflicts` label after conflict resolution
     runs-on: ubuntu-latest
     if: |
-      (github.event.name == 'pull_request_target')
+      (github.event_name == 'pull_request_target')
     steps:
       - name: Debug
         run: echo ${{github.event.head_commit.message}}
