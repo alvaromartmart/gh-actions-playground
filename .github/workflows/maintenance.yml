@@ -28,6 +28,9 @@ jobs:
     if: |
       (github.event_name == 'pull_request_target')
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
       - name: Debug
         run: |
           echo ${{github.event.head_commit.message}}
