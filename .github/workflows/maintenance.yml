@@ -15,7 +15,8 @@ jobs:
     if: |
       !(github.event_name == 'pull_request_target')
     steps:
-      - run: echo ${{github.event_name}}
+      - name: debug
+        run: echo ${{github.event_name}}
       - name: check if prs are dirty
         uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
