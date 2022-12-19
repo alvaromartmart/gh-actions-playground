@@ -75,6 +75,19 @@ jobs:
     steps:
       - name: Release (production)
         run: echo "Release to prod!"
+  expressions:
+    name: "Expressions"
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "result=1" >> $GITHUB_OUTPUT
+        id: results
+      - name: Without curly braces
+        if: steps.results.outputs.result > 0
+        run: echo "Without curly braces"
+      - name: With curly braces
+        if: ${{steps.results.outputs.result > 0}}
+        run: echo "With curly braces"
   print-message:
     runs-on: ubuntu-latest
     steps:
