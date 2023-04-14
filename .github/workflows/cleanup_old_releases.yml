@@ -27,7 +27,8 @@ jobs:
             fi
             # Parse the date
             date_str=$(echo "$line" | awk '{print $NF}')
-            date=$(date -j -f "%Y-%m-%dT%H:%M:%SZ" "$date_str" +%s)
+            date=$(date -u -d "$date_str" +%s)
+            # date=$(date -j -f "%Y-%m-%dT%H:%M:%SZ" "$date_str" +%s)
             week_ago=$(date -j -v -1w +%s)
             if [ "$date" -lt "$week_ago" ]; then
                 releaseName=$(echo "$line" | awk '{print $1}')
