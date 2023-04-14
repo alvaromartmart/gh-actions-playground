@@ -1,0 +1,39 @@
+name: cleanup old releases
+
+on:
+  # So that PRs touching the same files as the push are updated
+  push:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    env:
+      # Needed by the Github cli
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+    - name: Remove pre-releases older than a weeek
+      run: |
+        echo "Cleaning up pre-releases older than a weeek..."
+        # Get the releases
+        releases=$(gh release list)
+        while read -r line; do
+            # Process pre-releases only
+            if [[ ! "$line" =~ "Pre-release" ]]; then
+                continue
+            fi
+            # Parse the date
+            date_str=$(echo "$line" | awk '{print $NF}')
+            date=$(date -j -f "%Y-%m-%dT%H:%M:%SZ" "$date_str" +%s)
+            week_ago=$(date -j -v -1w +%s)
+            if [ "$date" -lt "$week_ago" ]; then
+                releaseName=$(echo "$line" | awk '{print $1}')
+                tag=$(echo "$line" | awk '{print $3}')
+                echo Removing release "$releaseName" for tag "$tag"...
+                # gh release delete $tag
+            fi
+        done <<< "$releases"
+      shell: bash
