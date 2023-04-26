@@ -163,7 +163,7 @@ jobs:
     if: always()
     strategy:
       matrix: 
-        releases: ${{ frormJson(needs.check-release.outputs.releases) }}
+        releases: ${{ fromJson(needs.check-release.outputs.releases) }}
     steps:
     - run: echo "Init"
     - name: print
