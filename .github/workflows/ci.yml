@@ -150,12 +150,12 @@ jobs:
         echo $RELEASES]
       id: get-releases
   print-release:
-    name: Release ${{matrix.release}}
+    name: Release
     needs: check-release
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        releases: ${{ toJson(needs.get-releases.outputs.releases) }}
+        releases: ${{ fromJson(needs.check-release.outputs.releases) }}
     steps:
     - run: echo "Init"
     - name: print
