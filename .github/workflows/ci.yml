@@ -139,7 +139,7 @@ jobs:
     #   (needs.test-summary.result != 'failure')
     timeout-minutes: 90
     outputs:
-      releases: ${{toJSON(steps.get-releases.outputs.releases)}}
+      releases: ${{toJSON(steps.get-releases.outputs)}}
     steps:
     - name: Get relevant releases array for next job's matrix
       run: |
@@ -154,8 +154,7 @@ jobs:
     needs: [check-release]
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        release: ${{(needs.check-release.outputs.releases)}}
+      matrix: ${{fromJSON(needs.check-release.outputs.releases)}}
     steps:
     - run: echo "Init"
     - name: print
