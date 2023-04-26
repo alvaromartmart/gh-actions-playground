@@ -127,7 +127,7 @@ jobs:
               {"type": "section", "text": {"type": "mrkdwn", "text": "${{ steps.read.outputs.result }}"}}
             ]
 
-  check-release:
+  check:
     name: 'Configure release'
     # needs: [test-summary, build-backend, build-frontend]
     runs-on: ubuntu-latest
@@ -148,6 +148,8 @@ jobs:
       if: ${{contains(github.event.head_commit.message, '[enterprise]')}}
       run: |
         echo "releases=enterprise" >> $GITHUB_OUTPUT
+    - run: |
+        echo ${{ toJson(steps.*.outputs.releases) }}
     # - name: Get relevant releases array for next job's matrix
     #   run: |
     #     RELEASES=["release"
@@ -158,18 +160,18 @@ jobs:
     #   id: get-releases
   print-release:
     name: Release
-    needs: check-release
+    needs: check
     runs-on: ubuntu-latest
     if: always()
     strategy:
       matrix: 
-        releases: ${{ fromJson(needs.check-release.outputs.releases) }}
+        releases: ${{ fromJson(needs.check.outputs.releases) }}
     steps:
     - run: echo "Init"
     - name: print
       run: |
-        echo ${{needs.check-release.outputs.releases}}
-        echo ${{fromJSON(needs.check-release.outputs.releases)}}
+        echo ${{needs.check.outputs.releases}}
+        echo ${{fromJSON(needs.check.outputs.releases)}}
 
 
     
