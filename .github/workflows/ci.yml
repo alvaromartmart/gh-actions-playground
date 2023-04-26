@@ -147,6 +147,7 @@ jobs:
         ${{contains(github.event.head_commit.message, '[enterprise]')}} && RELEASES=$RELEASES,"enterprise"
         ${{contains(github.event.head_commit.message, '[marketplace]')}} && RELEASES=$RELEASES,"marketplace"
         echo "releases=$RELEASES]" >> $GITHUB_OUTPUT
+        echo $RELEASES
       id: get-releases
   print-release:
     needs: [check-release]
