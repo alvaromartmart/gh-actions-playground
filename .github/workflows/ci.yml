@@ -155,7 +155,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        release: ["foo", "baz"]
+        releases: ${{ toJson(needs.get-releases.outputs.releases) }}
     steps:
     - run: echo "Init"
     - name: print
