@@ -127,5 +127,35 @@ jobs:
               {"type": "section", "text": {"type": "mrkdwn", "text": "${{ steps.read.outputs.result }}"}}
             ]
 
+  check-release:
+    name: 'Configure release'
+    # needs: [test-summary, build-backend, build-frontend]
+    runs-on: ubuntu-latest
+    # if: |
+    #   contains(github.event.head_commit.message, '[release]') &&
+    #   always() &&
+    #   (needs.build-backend.result != 'failure') &&
+    #   (needs.build-frontend.result != 'failure') &&
+    #   (needs.test-summary.result != 'failure')
+    timeout-minutes: 90
+    outputs:
+      releases: ${{steps.get-releases.outputs.releases}}
+    steps:
+    - name: Get relevant releases array for next job's matrix
+      run: |
+        RELEASES=["release"
+        ${{contains(github.event.head_commit.message, '[enterprise]')}} && RELEASES=$RELEASES,"enterprise"
+        ${{contains(github.event.head_commit.message, '[marketplace]')}} && RELEASES=$RELEASES,"marketplace"
+        echo "releases=$RELEASES]" >> $GITHUB_OUTPUT
+      id: get-releases
+  print-release:
+    needs: [check-release]
+    runs-on: ubuntu-latest
+    steps:
+    - name: print
+      run: |
+        echo ${{needs.check-release.outputs.releases}}
+        echo ${{fromJSON(needs.check-release.outputs.releases)}}
+
 
     
