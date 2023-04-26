@@ -139,16 +139,23 @@ jobs:
     #   (needs.test-summary.result != 'failure')
     timeout-minutes: 90
     outputs:
-      releases: ${{steps.get-releases.outputs.releases}}
+      releases: ${{ toJson(steps.*.outputs.releases) }}
     steps:
-    - name: Get relevant releases array for next job's matrix
+    - name: Enable "release"
       run: |
-        RELEASES=["release"
-        ${{contains(github.event.head_commit.message, '[enterprise]')}} && RELEASES=$RELEASES,""enterprise""
-        ${{contains(github.event.head_commit.message, '[marketplace]')}} && RELEASES=$RELEASES,""marketplace""
-        echo "releases=$RELEASES]" >> $GITHUB_OUTPUT
-        echo $RELEASES]
-      id: get-releases
+        echo "releases=release" >> $GITHUB_OUTPUT
+    - name: Enable "enterprise"
+      if: ${{contains(github.event.head_commit.message, '[enterprise]')}}
+      run: |
+        echo "releases=enterprise" >> $GITHUB_OUTPUT
+    # - name: Get relevant releases array for next job's matrix
+    #   run: |
+    #     RELEASES=["release"
+    #     ${{contains(github.event.head_commit.message, '[enterprise]')}} && RELEASES=$RELEASES,""enterprise""
+    #     ${{contains(github.event.head_commit.message, '[marketplace]')}} && RELEASES=$RELEASES,""marketplace""
+    #     echo "releases=$RELEASES]" >> $GITHUB_OUTPUT
+    #     echo $RELEASES]
+    #   id: get-releases
   print-release:
     name: Release
     needs: check-release
@@ -156,7 +163,7 @@ jobs:
     if: always()
     strategy:
       matrix: 
-        releases: ${{ needs.check-release.outputs.releases }}
+        releases: ${{ frormJson(needs.check-release.outputs.releases) }}
     steps:
     - run: echo "Init"
     - name: print
