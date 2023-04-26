@@ -139,7 +139,7 @@ jobs:
     #   (needs.test-summary.result != 'failure')
     timeout-minutes: 90
     outputs:
-      releases: ${{steps.get-releases.outputs}}
+      releases: ${{steps.get-releases.outputs.releases}}
     steps:
     - name: Get relevant releases array for next job's matrix
       run: |
