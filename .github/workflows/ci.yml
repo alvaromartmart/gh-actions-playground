@@ -152,6 +152,7 @@ jobs:
     needs: [check-release]
     runs-on: ubuntu-latest
     steps:
+    - run: echo "Init"
     - name: print
       run: |
         echo ${{needs.check-release.outputs.releases}}
