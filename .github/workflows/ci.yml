@@ -139,7 +139,7 @@ jobs:
     #   (needs.test-summary.result != 'failure')
     timeout-minutes: 90
     outputs:
-      releases: ${{toJSON(steps.get-releases.outputs)}}
+      releases: ${{steps.get-releases.outputs}}
     steps:
     - name: Get relevant releases array for next job's matrix
       run: |
@@ -156,7 +156,7 @@ jobs:
     if: always()
     strategy:
       matrix: 
-        releases: ${{ fromJson(needs.check-release.outputs.releases) }}
+        releases: ${{ needs.check-release.outputs.releases }}
     steps:
     - run: echo "Init"
     - name: print
