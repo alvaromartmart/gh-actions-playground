@@ -153,6 +153,7 @@ jobs:
     name: Release
     needs: check-release
     runs-on: ubuntu-latest
+    if: always()
     strategy:
       matrix: 
         releases: ${{ fromJson(needs.check-release.outputs.releases) }}
