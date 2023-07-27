@@ -11,6 +11,6 @@ jobs:
       - run: echo "handlers=$(cat .github/workflows/user-handlers.json)" >> GITHUB_OUTPUT
         id: read-handlers
       - name: print user
-        run: echo ${{ fromJson(steps.read-handlers.outputs.handlers.alvaro) }}
+        run: echo ${{ fromJson(steps.read-handlers.outputs.handlers)['alvaromartmart'] }}
         
 
