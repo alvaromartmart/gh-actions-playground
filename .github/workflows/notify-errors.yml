@@ -17,6 +17,6 @@ jobs:
           echo "handlers=$content" >> $GITHUB_OUTPUT
         id: read-handlers
       - name: print user
-        run: echo ${{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart }}
+        run: echo "${{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart.slack }}"
         
 
