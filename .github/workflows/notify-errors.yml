@@ -9,14 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          content=`cat .github/workflows/user-handlers.json`
-          echo "$content"
-          echo "handlers='$content'" >> $GITHUB_OUTPUT
-        id: read-handlers
-      - name: "print user"
-        run: |
-          echo "Hello"
-          echo "${{ steps.read-handlers.outputs.handlers }}"
+          slack_value=$(jq --arg user "alvaromartmart" '.[$user].slack' .github/workflows/user-handlers.json)
+          echo $slack_value
+
 # echo "{{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart.slack }}"
         
 
