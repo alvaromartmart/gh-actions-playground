@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "handlers=$(cat .github/workflows/user-handlers.json)" >> $GITHUB_OUTPUT
+      - run: echo "handlers=\"$(cat .github/workflows/user-handlers.json)\"" >> $GITHUB_OUTPUT
         id: read-handlers
       - name: print user
         run: echo ${{ fromJson(steps.read-handlers.outputs.handlers)['alvaromartmart'] }}
