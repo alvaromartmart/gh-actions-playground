@@ -11,6 +11,8 @@ jobs:
       - run: |
           slack_value=$(jq --arg user "alvaromartmart" '.[$user].slack' .github/workflows/user-handlers.json)
           echo $slack_value
+          slack_value2=$(jq --arg user "alvaromartmart2" '.[$user].slack' .github/workflows/user-handlers.json)
+          echo $slack_value2
 
 # echo "{{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart.slack }}"
         
