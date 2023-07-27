@@ -11,11 +11,7 @@ jobs:
       - run: |
           content=`cat .github/workflows/user-handlers.json`
           echo "$content"
-          # the following lines are only required for multi line json
-          # content="${content//'%'/'%25'}"
-          # content="${content//$'\n'/'%0A'}"
-          # content="${content//$'\r'/'%0D'}"
-          echo "handlers=`$content`" >> $GITHUB_OUTPUT
+          echo "handlers=$content" >> $GITHUB_OUTPUT
         id: read-handlers
       - name: "print user"
         run: |
