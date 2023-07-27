@@ -10,6 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           content=`cat .github/workflows/user-handlers.json`
+          echo "$content"
           # the following lines are only required for multi line json
           content="${content//'%'/'%25'}"
           content="${content//$'\n'/'%0A'}"
