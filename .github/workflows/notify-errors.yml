@@ -9,10 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          echo 'HANDLERS<<EOF' >> $GITHUB_ENV
-          cat .github/workflows/user-handlers.json >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-          echo "handlers=$HANDLERS" >> $GITHUB_OUTPUT
+          HANDLERS=$(cat .github/workflows/user-handlers.json)
+          echo "handlers=${HANDLERS//'%'/'%25'}" >> $GITHUB_OUTPUT
         id: read-handlers
       - name: print user
         run: echo ${{ fromJson(steps.read-handlers.outputs.handlers)['alvaromartmart'] }}
