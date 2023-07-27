@@ -18,7 +18,8 @@ jobs:
         id: read-handlers
       - name: print user
         run: |
-          echo "${{ steps.read-handlers.outputs.handlers }}"
-          echo "${{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart.slack }}"
+          echo "Hello"
+          # echo "${{ steps.read-handlers.outputs.handlers }}"
+          # echo "${{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart.slack }}"
         
 
