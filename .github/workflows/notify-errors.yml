@@ -14,9 +14,11 @@ jobs:
           content="${content//'%'/'%25'}"
           content="${content//$'\n'/'%0A'}"
           content="${content//$'\r'/'%0D'}"
-          echo "handlers=$content" >> $GITHUB_OUTPUT
+          echo "handlers="$content"" >> $GITHUB_OUTPUT
         id: read-handlers
       - name: print user
-        run: echo "${{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart.slack }}"
+        run: |
+          echo "${{ steps.read-handlers.outputs.handlers }}"
+          echo "${{ fromJson(steps.read-handlers.outputs.handlers).alvaromartmart.slack }}"
         
 
