@@ -1,0 +1,14 @@
+name: notify user
+
+on:
+	push:
+
+jobs:
+	notify-user:
+		runs-on: ubuntu-latest
+		steps:
+			-	uses: actions/checkout@v3
+			-	name: print user
+        run: echo ${{ fromJson($(cat ./user-handlers.json)).alvaro }}
+        
+
