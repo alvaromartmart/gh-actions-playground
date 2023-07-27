@@ -11,7 +11,7 @@ jobs:
       - run: |
           content=`cat .github/workflows/user-handlers.json`
           echo "$content"
-          echo "handlers=`$content`" >> $GITHUB_OUTPUT
+          echo "handlers='$content'" >> $GITHUB_OUTPUT
         id: read-handlers
       - name: "print user"
         run: |
