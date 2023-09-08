@@ -4,3 +4,4 @@ master2!
 
 foo
 bar
+baz
